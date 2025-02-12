@@ -253,6 +253,7 @@ var swap_default = {
   },
   description: TRADE_ACTION.description,
   handler: async (runtime, message, state, _options, callback) => {
+    var _a, _b;
     const sak = await getSAK(runtime);
     if (!state) {
       state = await runtime.composeState(message);
@@ -269,10 +270,10 @@ var swap_default = {
       modelClass: ModelClass2.LARGE
     });
     elizaLogger3.log("Response:", response);
-    if (response.inputTokenSymbol?.toUpperCase() === "SOL") {
+    if (((_a = response.inputTokenSymbol) == null ? void 0 : _a.toUpperCase()) === "SOL") {
       response.inputTokenCA = settings.SOL_ADDRESS;
     }
-    if (response.outputTokenSymbol?.toUpperCase() === "SOL") {
+    if (((_b = response.outputTokenSymbol) == null ? void 0 : _b.toUpperCase()) === "SOL") {
       response.outputTokenCA = settings.SOL_ADDRESS;
     }
     if (!response.amount) {
@@ -280,7 +281,7 @@ var swap_default = {
       const responseMsg = {
         text: "I need the amount to perform the swap"
       };
-      callback?.(responseMsg);
+      callback == null ? void 0 : callback(responseMsg);
       return true;
     }
     if (!response.amount) {
@@ -288,7 +289,7 @@ var swap_default = {
       const responseMsg = {
         text: "The amount must be a number"
       };
-      callback?.(responseMsg);
+      callback == null ? void 0 : callback(responseMsg);
       return true;
     }
     try {
@@ -328,7 +329,7 @@ var swap_default = {
       const responseMsg = {
         text: `Swap completed successfully! Transaction ID: ${txid}`
       };
-      callback?.(responseMsg);
+      callback == null ? void 0 : callback(responseMsg);
       return true;
     } catch (error) {
       elizaLogger3.error("Error during token swap:", error);
